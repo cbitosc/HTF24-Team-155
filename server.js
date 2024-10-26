@@ -7,14 +7,12 @@ const PORT = 3000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'app/static'))); // Serve static files
+app.use(express.static(path.join(__dirname, 'app/static')));
+app.use(express.static(path.join(__dirname, 'images'))); // Serve static files
 app.set('views', path.join(__dirname, 'app/templates')); // Set views directory
 app.set('view engine', 'ejs'); // Use EJS as template engine
+app.use('/images', express.static(path.join(__dirname, '../images'))); // Serve images
 
-// Variable to track the last response type
-let lastResponseType = 'general';
-
-// Routes
 app.get('/', (req, res) => {
     res.render('index'); // Render the index view
 });
@@ -50,6 +48,14 @@ function getAIResponse(userInput) {
             'Try focusing on your breath. It can help ground you in the moment.',
             'Remember, it’s okay to feel nervous; you’re not alone.'
         ],
+        'breathing': [
+            'Let’s try a simple breathing exercise together. Inhale deeply through your nose for 4 seconds, hold for 4 seconds, and exhale slowly through your mouth for 4 seconds. Repeat a few times.',
+            'Breathe in for a count of 4, hold for 4, and exhale for a count of 4. Let’s do this a few times together.',
+            'Take a deep breath in for 4 seconds, hold it for 4 seconds, then exhale slowly for 6 seconds. Feel the tension release.',
+            'Let’s practice square breathing: inhale for 4 seconds, hold for 4, exhale for 4, and hold for 4. Repeat this several times.',
+            'Focus on your breath. Inhale for 4 seconds, hold, then exhale slowly. Let’s do this together to calm your mind.'
+        ],
+
         'unease': [
             'It sounds like you’re feeling unsettled. Would you like to talk about it?',
             'Identifying the source of your unease can be helpful. Can we explore that?',
@@ -77,6 +83,34 @@ function getAIResponse(userInput) {
             'Have you considered confronting your fear in small steps?',
             'Remember, fear is a common feeling. You’re not alone in this.',
             'Can I assist you in finding resources to help you cope with your fears?'
+        ],
+        'bye': [
+            'Thank you for chatting! Take care and feel free to return if you need support.',
+            'Goodbye! Remember, you are not alone. Reach out whenever you need.',
+            'It was nice talking to you! Wishing you all the best.',
+            'Thanks for the conversation! Stay safe and take care of yourself.',
+            'See you next time! Take care!'
+        ],
+        'thanks': [
+            'You’re welcome! If you have more questions or need support, I’m here for you.',
+            'I’m glad to help! Don’t hesitate to return if you need anything else.',
+            'Thank you for chatting! Your well-being is important.',
+            'It was my pleasure! Remember to take care of yourself.',
+            'Anytime! I’m here whenever you need support.'
+        ],
+        'thank you': [
+            'You’re welcome! If you have more questions or need support, I’m here for you.',
+            'I’m glad to help! Don’t hesitate to return if you need anything else.',
+            'Thank you for chatting! Your well-being is important.',
+            'It was my pleasure! Remember to take care of yourself.',
+            'Anytime! I’m here whenever you need support.'
+        ],
+        'general': [
+            'I’m here to support you. What’s on your mind?',
+            'Feel free to share whatever you’re comfortable discussing. I’m here to listen.',
+            'If you have any specific topics in mind, let’s talk about those.',
+            'It’s okay to just want to chat. I’m here for you.',
+            'Your feelings matter; let’s talk about what you need right now.'
         ],
         'stress': [
             'It can be tough to handle stress. A short break might help you clear your mind.',
@@ -135,200 +169,151 @@ function getAIResponse(userInput) {
             'Would you like some suggestions for self-care activities?'
         ],
         'melancholy': [
-            'Melancholy can be a heavy feeling. Would you like to talk about what’s causing it?',
-            'It might help to reflect on your feelings. What’s on your mind?',
-            'Writing down your thoughts can sometimes clarify feelings of melancholy.',
-            'Consider reaching out to someone to share how you’re feeling; it can help.',
-            'You’re not alone in feeling this way. Let’s talk about it together.'
+            'Feeling melancholy can be challenging. What’s been weighing on your mind?',
+            'Sometimes, expressing your feelings through art or writing can be therapeutic. Would you like to try?',
+            'It’s important to acknowledge how you feel. Would you like to share more?',
+            'Consider surrounding yourself with supportive people during these times.',
+            'You’re not alone in feeling this way; let’s talk about it.'
         ],
-        'sorrow': [
-            'Sorrow can be difficult to process. I’m here if you want to share.',
-            'Have you thought about expressing your feelings through writing or art?',
-            'Talking about your feelings can often bring relief. Would you like to do that?',
-            'Consider spending time in nature; it can be healing during tough times.',
-            'You deserve to take the time to heal. What would help you right now?'
+        'depressed': [
+            'I’m sorry to hear you’re feeling this way. It’s important to talk about it.',
+            'Have you reached out to someone who can provide support? It can help.',
+            'Sometimes, just sharing how you feel can lighten the load. What’s on your mind?',
+            'Engaging in small, enjoyable activities might help you feel better. Want some ideas?',
+            'You’re not alone, and it’s okay to seek help when you need it.'
         ],
-        'grief': [
-            'Grief can be a heavy burden. Would you like to talk about what you’re grieving?',
-            'Have you considered seeking support groups for those who are grieving? It can help.',
-            'Talking about memories can sometimes ease the pain of grief. Would you like to share?',
-            'It’s important to allow yourself to feel and process your grief. I’m here for you.',
-            'Remember, there’s no timeline for grief. You’re allowed to feel however you need.'
-        ],
-        'emotional turmoil': [
-            'Emotional turmoil can feel chaotic. What’s currently causing you this distress?',
-            'Talking through your feelings can sometimes bring clarity. Would you like to share?',
-            'Consider engaging in activities that help ground you, such as meditation or yoga.',
-            'It might be beneficial to keep a journal to process your emotions. Have you tried that?',
-            'Remember, it’s okay to feel overwhelmed. You’re not alone in this.'
-        ],
-        'depression': [
-            'I’m here for you. Have you been able to speak with anyone about how you’re feeling?',
-            'It’s important to talk about depression. Would you like to discuss your feelings?',
-            'Consider reaching out for professional help. It can be a vital step towards healing.',
-            'Engaging in self-care activities can sometimes make a difference. Would you like suggestions?',
-            'You’re not alone in this. Many people face depression, and there is support available.'
+        'lonely': [
+            'Loneliness can be very difficult. I’m here to listen if you want to share.',
+            'Consider reaching out to a friend or family member; connection can help.',
+            'Joining a group or club can also help ease feelings of loneliness. Have you thought about that?',
+            'What are some activities you enjoy? Engaging in them can provide comfort.',
+            'You’re not alone in feeling this way; let’s talk about how you’re feeling.'
         ],
         'helplessness': [
-            'Feeling helpless can be overwhelming. What’s currently making you feel this way?',
-            'It’s important to talk about these feelings. Would you like to share more?',
-            'Consider breaking tasks into smaller steps; it can help reduce feelings of helplessness.',
-            'Reaching out to someone for support can often bring relief. I’m here for you.',
-            'You’re not alone in feeling this way; let’s talk about it together.'
+            'Feeling helpless can be tough. What’s making you feel this way?',
+            'Sometimes discussing your feelings can provide a new perspective. Would you like to share?',
+            'Consider focusing on small steps you can take to regain a sense of control.',
+            'It’s important to reach out for support when you’re feeling this way.',
+            'You’re not alone in this; let’s work together to find some hope.'
         ],
-        'loneliness': [
-            'Loneliness can feel heavy. I’m here to listen if you’d like to share.',
-            'Have you thought about reaching out to someone to connect? It can help.',
-            'Engaging in activities you enjoy can sometimes ease feelings of loneliness.',
-            'Consider joining groups or activities that align with your interests; it can help connect you with others.',
-            'You deserve connection and support. Let’s explore ways to find that.'
-        ],
-        'isolation': [
-            'Isolation can be tough. Would you like to share what you’re experiencing?',
-            'Reaching out to friends or family can help reduce feelings of isolation. Can I assist you with that?',
-            'Consider finding a community group that interests you; connecting with others can be helpful.',
-            'Have you thought about engaging in online communities? It can provide support.',
-            'Remember, you’re not alone; I’m here for you whenever you need to talk.'
-        ],
-        'alienation': [
-            'Feeling alienated can be painful. What’s causing you to feel this way?',
-            'It might help to talk about your feelings of alienation. Can we explore that together?',
-            'Connecting with people who share your interests can help alleviate feelings of alienation.',
-            'Have you considered expressing your feelings through art or writing?',
-            'Remember, it’s okay to seek support. You don’t have to face this alone.'
-        ],
-        'abandonment': [
-            'Feelings of abandonment can be overwhelming. What’s on your mind?',
-            'It’s important to talk about these feelings. Would you like to share more?',
-            'Have you considered reaching out to someone who can provide support?',
-            'You’re not alone in feeling this way; let’s talk about it together.',
-            'Consider practicing self-compassion; you deserve kindness and understanding.'
-        ],
-        'disappointment': [
-            'Disappointment can be difficult to process. What’s currently bothering you?',
-            'Talking about your feelings can sometimes bring relief. Would you like to do that?',
-            'Consider reflecting on what you can learn from this experience.',
-            'It’s important to give yourself time to feel and heal. How can I support you?',
-            'Remember, it’s okay to feel disappointed. Let’s talk about it together.'
-        ],
-        'incompetent': [
-            'Feeling incompetent can be tough. Would you like to share what’s making you feel this way?',
-            'It’s important to recognize your strengths as well. Can we explore that together?',
-            'Consider journaling your accomplishments, no matter how small; it can help change your perspective.',
-            'You’re capable of more than you realize. Let’s work on building your confidence.',
-            'Remember, everyone struggles at times; you’re not alone in feeling this way.'
-        ],
-        'low energy': [
-            'Low energy can be draining. Have you been getting enough rest?',
-            'Consider taking short breaks to recharge during the day. What do you think?',
-            'Sometimes, a change of scenery can help boost your energy. Would you like some suggestions?',
-            'Engaging in light physical activity can also help. Have you tried it?',
-            'Remember, it’s okay to take things slow. You deserve to take care of yourself.'
+        'suicidal': [
+            'I’m really sorry to hear that you’re feeling this way. It’s important to talk to someone who can help you, like a mental health professional.',
+            'Please reach out to a trusted friend or a helpline immediately. You don’t have to face this alone.',
+            'Your feelings matter, and getting support is crucial. I’m here to talk if you need me.',
+            'You’re not alone, and there are people who want to help you. Please consider reaching out for support.',
+            'I care about your well-being. If you’re in crisis, please seek immediate help.'
         ],
         'tired': [
-            'Feeling tired can be a sign to slow down. Have you been getting enough rest?',
-            'Consider setting aside some time for relaxation or self-care activities.',
-            'It might help to evaluate your daily routine; are there areas you could adjust?',
-            'Remember, it’s important to listen to your body’s needs. What can you do for yourself right now?',
-            'You deserve to take breaks and care for your well-being.'
+            'Feeling tired can be a sign that you need rest. Have you had enough sleep lately?',
+            'Consider taking short breaks throughout the day. It can help rejuvenate your energy.',
+            'Engaging in some light exercise might also help boost your energy levels.',
+            'Are there any activities that help you recharge? Let’s explore those.',
+            'It’s important to listen to your body. What can you do to take care of yourself right now?'
+        ],
+        'low energy': [
+            'Low energy can be challenging. Have you had enough rest and nourishment?',
+            'Consider light exercises or stretching; it might help invigorate you.',
+            'Engaging in activities you love can sometimes provide an energy boost.',
+            'Let’s talk about your daily routine; are there adjustments we can make?',
+            'You deserve to feel energized; let’s work together to explore some ideas.'
         ],
         'sleep deprived': [
-            'Sleep deprivation can significantly impact your well-being. What’s keeping you from sleeping well?',
-            'Consider establishing a calming bedtime routine. Would you like some tips?',
-            'Have you tried techniques such as deep breathing or meditation to help you sleep?',
-            'It’s important to prioritize rest; your body needs it to function well.',
-            'Remember, you’re not alone; many people experience sleep difficulties.'
-        ],
-        'insomniac': [
-            'Insomnia can be frustrating. What’s on your mind that might be affecting your sleep?',
-            'Consider seeking professional help if insomnia persists; there are effective treatments available.',
-            'Engaging in relaxation techniques before bed can sometimes help. Would you like to learn more?',
-            'Have you evaluated your sleep environment? Making adjustments can often improve sleep quality.',
-            'Remember, it’s okay to ask for help when dealing with insomnia.'
+            'Sleep deprivation can take a toll on your mental health. Have you considered creating a bedtime routine?',
+            'Avoiding screens before bed can help. What do you think about that?',
+            'Let’s explore some relaxation techniques to help you wind down before sleep.',
+            'It’s essential to prioritize sleep for your well-being. Are there changes you can make to your routine?',
+            'Remember, you’re not alone in this struggle. Let’s talk about it.'
         ],
         'insomnia': [
-            'Insomnia can be difficult to manage. What are some factors contributing to your sleep issues?',
-            'Consider practicing good sleep hygiene. Would you like suggestions?',
-            'Talking to someone about your concerns can sometimes help alleviate anxiety around sleep.',
-            'It’s important to prioritize rest; have you been able to do that lately?',
-            'You’re not alone in this; many people struggle with insomnia.'
+            'Insomnia can be frustrating. Have you tried any relaxation techniques before bed?',
+            'Creating a calming bedtime routine can sometimes help. Would you like suggestions?',
+            'Consider avoiding caffeine and heavy meals before bedtime; it might improve sleep quality.',
+            'Keeping a sleep diary can help identify patterns. Would you like to try that?',
+            'You deserve restful sleep. Let’s discuss some strategies that might help.'
         ],
         'overthinking': [
-            'Overthinking can be exhausting. What thoughts are currently consuming your mind?',
-            'Consider practicing mindfulness techniques to help ground yourself in the present moment.',
-            'Have you tried writing down your thoughts? It can sometimes bring clarity.',
-            'Talking through your thoughts can also help. I’m here to listen.',
-            'Remember, it’s okay to take a break from your thoughts. You deserve peace of mind.'
+            'Overthinking can lead to stress. Have you tried mindfulness or grounding techniques?',
+            'Sometimes, jotting down your thoughts can provide clarity. Would you like to try that?',
+            'Engaging in physical activities can also help redirect your focus. What do you think?',
+            'Consider setting a timer for worry time; it can help contain those thoughts.',
+            'You’re not alone in this; let’s explore some techniques together.'
         ],
         'addiction': [
-            'Addiction can be a tough battle. What are you currently struggling with?',
-            'It’s important to seek help when dealing with addiction. Would you like resources or support?',
-            'Consider reaching out to a support group; it can provide a sense of community.',
-            'Talking about your experiences can sometimes lighten the burden. Would you like to share?',
-            'Remember, recovery is a journey; you don’t have to face it alone.'
+            'Addiction can be tough to face. Are you currently seeking support?',
+            'Have you considered talking to a professional about your feelings?',
+            'It’s important to address addiction; you deserve support and guidance.',
+            'What steps have you taken so far? Let’s discuss how I can assist you.',
+            'You’re not alone in this journey. Let’s work together to find a path forward.'
         ],
         'restlessness': [
-            'Restlessness can be frustrating. What’s causing you to feel this way?',
-            'Engaging in physical activity can sometimes help relieve restlessness. Have you tried it?',
-            'Consider taking a moment to breathe deeply and refocus your mind.',
-            'It might help to engage in a hobby or activity that keeps your hands busy.',
-            'Remember, it’s okay to feel restless; let’s explore ways to find calm together.'
+            'Restlessness can be challenging. What’s on your mind that’s causing it?',
+            'Consider engaging in physical activity; it can help channel that energy.',
+            'Mindfulness practices can also provide a sense of calm. Would you like suggestions?',
+            'Let’s talk about ways to help you feel more grounded right now.',
+            'You deserve to find peace. Let’s work on that together.'
         ],
         'frustration': [
-            'Frustration can be overwhelming. What’s currently bothering you?',
-            'Have you considered taking a step back to reassess the situation?',
-            'Talking about your feelings can often bring clarity. Would you like to share?',
-            'Remember, it’s okay to feel frustrated; you’re not alone in this.',
-            'Let’s explore some strategies to help you cope with your frustration.'
+            'Frustration can be tough to manage. What’s causing you to feel this way?',
+            'Sometimes discussing your feelings can bring clarity. I’m here to listen.',
+            'Have you considered taking a break? It can help clear your mind.',
+            'Let’s talk about some strategies to cope with frustration together.',
+            'You’re not alone in feeling frustrated; let’s explore how to address it.'
         ],
         'nightmares': [
-            'Nightmares can be distressing. Have you been experiencing them often?',
-            'Consider establishing a calming bedtime routine; it might help reduce nightmares.',
-            'Talking about your dreams can sometimes alleviate their impact. Would you like to share?',
-            'Have you tried relaxation techniques before bed? They can promote better sleep.',
-            'Remember, you’re not alone; many people experience nightmares from time to time.'
+            'Nightmares can be unsettling. Would you like to talk about them?',
+            'Sometimes discussing your dreams can provide insight. I’m here to listen.',
+            'Consider creating a calming bedtime routine to promote restful sleep.',
+            'Let’s explore some relaxation techniques to help ease your mind before sleep.',
+            'You deserve peaceful sleep; let’s work on that together.'
         ],
         'lack of empathy': [
-            'A lack of empathy can be difficult to deal with. What’s on your mind?',
-            'Consider discussing your feelings with someone you trust; it can help.',
-            'It’s important to have your feelings validated. I’m here to listen.',
-            'Have you thought about reaching out to a support group? It can provide connection.',
-            'Remember, you deserve understanding and support during tough times.'
+            'It’s tough to feel like there’s a lack of empathy around you. What’s been happening?',
+            'Have you reached out to talk about your feelings? It can be helpful.',
+            'Consider surrounding yourself with supportive people who understand your feelings.',
+            'You deserve to be heard. Let’s talk about how you’re feeling.',
+            'Remember, you’re not alone. Let’s explore ways to find understanding.'
         ],
         'no will to live': [
-            'I’m really sorry to hear that you’re feeling this way. It’s important to talk to someone who can help.',
-            'Please consider reaching out to a professional or a helpline; they can provide support.',
-            'You’re not alone in this; many people care about you. Would you like help finding someone to talk to?',
-            'Your feelings are valid, and it’s okay to seek help when you need it.',
-            'I’m here to listen and support you. Please let me know how I can help.'
+            'I’m really sorry to hear that you’re feeling this way. It’s crucial to talk to someone who can help, like a mental health professional.',
+            'Please reach out to a trusted friend or a helpline immediately. You don’t have to face this alone.',
+            'Your feelings matter, and getting support is vital. I’m here to talk if you need me.',
+            'You’re not alone, and there are people who want to help you. Please consider reaching out for support.',
+            'I care about your well-being. If you’re in crisis, please seek immediate help.'
         ],
         'spiraling': [
-            'It sounds like you’re feeling out of control. Would you like to talk about what’s causing this?',
-            'Consider taking a moment to breathe deeply; it can help center you.',
-            'Have you thought about reaching out to someone for support during this time?',
-            'Writing down your thoughts can sometimes bring clarity. Would you like to try that?',
-            'Remember, it’s okay to seek help when you’re feeling overwhelmed.'
+            'It sounds like you’re feeling overwhelmed. Can you identify what’s causing this spiraling?',
+            'Have you thought about grounding techniques to help regain your focus?',
+            'Sometimes talking it out can bring clarity. I’m here to listen if you want to share.',
+            'Consider taking a break to clear your mind. It can help center your thoughts.',
+            'You deserve to feel in control. Let’s talk about steps you can take to ground yourself.'
+        ],
+        'general': [
+            'Feel free to share anything on your mind. I’m here to support you.',
+            'I’m here for you. What would you like to talk about today?',
+            'Let’s discuss what’s bothering you. Your feelings are important.',
+            'I’m ready to listen. Please share what you’re thinking.',
+            'How can I assist you right now? I’m here to help.'
         ],
         'panic attack': [
-            'Panic attacks can be terrifying. Have you experienced this before?',
-            'Try focusing on your breath. Inhale deeply through your nose, hold for a few seconds, and exhale slowly.',
-            'Have you considered speaking with a professional about your panic attacks? It can be helpful.',
-            'It might help to have a grounding technique ready for when you feel a panic attack coming on.',
-            'Remember, you’re not alone in this; many people experience panic attacks, and there is help available.'
+            'Panic attacks can be very distressing. I’m here to help. Would you like to try some breathing exercises?',
+            'Grounding techniques can be helpful during a panic attack. Would you like me to guide you?',
+            'It’s important to remind yourself that you’re safe. Let’s work on that together.',
+            'Consider talking to someone you trust about your feelings. It can provide relief.',
+            'You’re not alone in this. Let’s talk about how to manage those feelings.'
         ]
     };
 
-    // Check for specific keywords in user input and return a random response
+    // Check for keywords in user input
     for (let keyword in responses) {
         if (userInput.includes(keyword)) {
-            const responseList = responses[keyword];
-            lastResponseType = keyword; // Update the last response type
-            return responseList[Math.floor(Math.random() * responseList.length)];
+            // Select a random response from the list
+            return responses[keyword][Math.floor(Math.random() * responses[keyword].length)];
         }
     }
 
-    // Default response if no keywords are found
-    return "I'm here to listen. Please share more about what you're feeling.";
+    // Default response if no keywords matched
+    return responses['general'][Math.floor(Math.random() * responses['general'].length)];
+
 }
 
 // Start the server
