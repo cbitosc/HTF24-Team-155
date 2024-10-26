@@ -11,7 +11,13 @@ body {
     background: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 #chatbox {
@@ -20,42 +26,41 @@ body {
     border: 1px solid #ccc;
     margin-bottom: 10px;
     padding: 10px;
-<<<<<<< HEAD
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
+    background-color: #f9f9f9;
 }
 
 #messages {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
-=======
-}
-
-#messages {
-    display: flex;
-    flex-direction: column;
->>>>>>> 96f8119a6eb6f7189b57d41e5032164adc8457f9
 }
 
 .user-message, .ai-message {
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 .user-message {
     background-color: #e1ffc7;
     align-self: flex-end;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .ai-message {
     background-color: #d1e6ff;
     align-self: flex-start;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-<<<<<<< HEAD
 .input-area {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 #user-input {
@@ -63,6 +68,12 @@ body {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border-color 0.3s ease; /* Smooth transition for focus effect */
+}
+
+#user-input:focus {
+    border-color: #4CAF50; /* Change border color on focus */
+    outline: none; /* Remove default outline */
 }
 
 #send-button {
@@ -72,6 +83,7 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
 }
 
 #send-button:hover {
@@ -84,6 +96,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+    text-align: center; /* Center align helpline text */
 }
 
 .scrolling-helpline {
@@ -97,9 +110,20 @@ body {
 
 .helpline-number {
     color: red;
-=======
-#helpline {
+}
+
+footer {
+    text-align: center;
     margin-top: 20px;
-    font-weight: bold;
->>>>>>> 96f8119a6eb6f7189b57d41e5032164adc8457f9
+    font-size: 0.9em;
+    color: #777;
+}
+
+footer a {
+    color: #4CAF50; /* Link color */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline; /* Underline links on hover */
 }
