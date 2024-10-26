@@ -1,17 +1,27 @@
 body {
     font-family: Arial, sans-serif;
+<<<<<<< HEAD
     background-color: #FFFFFF; /* No background color for full-screen effect */
     color: black; /* Black text for readability */
+=======
+    background-color: #F2F2F2; /* Light gray background */
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
     margin: 0;
     padding: 0; /* Remove padding */
     height: 100vh; /* Full height */
 }
 
 .container {
+<<<<<<< HEAD
     max-width: 100%; /* Full width */
     height: calc(100vh - 50px); /* Full height minus footer space */
     margin: 0; /* Remove margin */
     background: #FFFFFF; /* White background */
+=======
+    max-width: 600px;
+    margin: auto;
+    background: #fff; /* White background */
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
     padding: 20px;
     border-radius: 0; /* Remove border radius */
     box-shadow: none; /* Remove box shadow */
@@ -31,10 +41,9 @@ h1 {
     border: 2px solid #003366; /* Dark blue border */
     margin-bottom: 10px;
     padding: 10px;
-    display: flex;
-    flex-direction: column;
     border-radius: 5px;
     background-color: #F9F9F9; /* Light gray background */
+<<<<<<< HEAD
 }
 
 #messages {
@@ -55,17 +64,34 @@ h1 {
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
     background-color: #3D9970; /* Dark green background */
     color: white; /* White text */
+=======
+}
+
+.user-message, .ai-message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.user-message {
+    background-color: #E1FFC7; /* Light green background */
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
     align-self: flex-end;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 70%; /* Limit the width of user messages */
 }
 
 .ai-message {
+<<<<<<< HEAD
     padding: 10px;
     border-radius: 5px;
     transition: background-color 0.3s ease; /* Smooth transition for hover effect */
     background-color: #0074D9; /* Dark blue background */
     color: white; /* White text */
+=======
+    background-color: #D1E6FF; /* Light blue background */
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
     align-self: flex-start;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 70%; /* Limit the width of AI messages */
@@ -82,28 +108,38 @@ h1 {
     padding: 10px;
     border: 2px solid #003366; /* Dark blue border */
     border-radius: 4px;
-    transition: border-color 0.3s ease; /* Smooth transition for focus effect */
+    transition: border-color 0.3s ease;
 }
 
 #user-input:focus {
+<<<<<<< HEAD
     border-color: #3D9970; /* Dark green border on focus */
     outline: none; /* Remove default outline */
+=======
+    border-color: #4CAF50;
+    outline: none;
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
 }
 
 #send-button {
     padding: 10px 15px;
+<<<<<<< HEAD
     background-color: #3D9970; /* Dark green button */
+=======
+    background-color: #4CAF50; /* Green button */
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: background-color 0.3s ease;
 }
 
 #send-button:hover {
     background-color: #2C7A4B; /* Darker green on hover */
 }
 
+<<<<<<< HEAD
 /* Helpline Styling */
 #helpline {
     font-weight: bold;
@@ -126,6 +162,8 @@ h1 {
     100% { transform: translateX(-100%); }
 }
 
+=======
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
 footer {
     text-align: center;
     margin-top: 20px;
@@ -134,11 +172,16 @@ footer {
 }
 
 footer a {
+<<<<<<< HEAD
     color: #3D9970; /* Dark green link color */
+=======
+    color: #4CAF50; /* Green link color */
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
     text-decoration: none;
 }
 
 footer a:hover {
+<<<<<<< HEAD
     text-decoration: underline; /* Underline links on hover */
 }
 
@@ -149,3 +192,7 @@ footer a:hover {
     border-radius: 50%; /* Make it circular */
     margin-right: 10px; /* Space between avatar and message text */
 }
+=======
+    text-decoration: underline;
+}
+>>>>>>> 470889b75c3bfd3522733a4b460f523c481c483c
