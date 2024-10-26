@@ -20,12 +20,20 @@ body {
     border: 1px solid #ccc;
     margin-bottom: 10px;
     padding: 10px;
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
 }
 
 #messages {
     flex-grow: 1;
+=======
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+>>>>>>> 96f8119a6eb6f7189b57d41e5032164adc8457f9
 }
 
 .user-message, .ai-message {
@@ -44,6 +52,7 @@ body {
     align-self: flex-start;
 }
 
+<<<<<<< HEAD
 .input-area {
     display: flex;
     justify-content: space-between;
@@ -88,4 +97,9 @@ body {
 
 .helpline-number {
     color: red;
+=======
+#helpline {
+    margin-top: 20px;
+    font-weight: bold;
+>>>>>>> 96f8119a6eb6f7189b57d41e5032164adc8457f9
 }
