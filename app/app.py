@@ -1,27 +1,28 @@
 from flask import Flask, request, jsonify
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
+# Initialize Flask app
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return "<h1>Welcome to the Mental Health Chatbot</h1><p>Use /chat to interact.</p>"
+# Load the fine-tuned model and tokenizer
+# Change this line:
 
-@app.route('/chat', methods=['POST'])
-def chat():
-    user_input = request.json.get('message')
-    response = get_response(user_input)  # Call the response function
-    return jsonify({'response': response})
+# To this line (removing the './'):
+model = AutoModelForCausalLM.from_pretrained('fine_tuned_model')
 
-def get_response(user_input):
-    # Simple logic based on keywords
-    if "anxiety" in user_input.lower():
-        return "It's okay to feel anxious. Consider practicing deep breathing."
-    elif "stress" in user_input.lower():
-        return "Stress can be managed with meditation and exercise."
-    elif "depression" in user_input.lower():
-        return "It's important to talk to someone. You're not alone."
-    else:
-        return "I'm here to help. Can you tell me more about what you're feeling?"
+tokenizer = AutoTokenizer.from_pretrained('./fine_tuned_model')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.get_json()
+    input_text = data['text']  # Get the input text from the request
+    inputs = tokenizer.encode(input_text, return_tensors='pt')
+
+    # Generate predictions
+    outputs = model.generate(inputs, max_length=100)
+    predicted_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+    return jsonify({'response': predicted_text})
 
 if __name__ == '__main__':
     app.run(debug=True)

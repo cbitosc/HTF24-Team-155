@@ -1,35 +1,40 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #FFFFFF; /* No background color for full-screen effect */
+    color: black; /* Black text for readability */
     margin: 0;
-    padding: 20px;
+    padding: 0; /* Remove padding */
+    height: 100vh; /* Full height */
 }
 
 .container {
-    max-width: 600px;
-    margin: auto;
-    background: white;
+    max-width: 100%; /* Full width */
+    height: calc(100vh - 50px); /* Full height minus footer space */
+    margin: 0; /* Remove margin */
+    background: #FFFFFF; /* White background */
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 0; /* Remove border radius */
+    box-shadow: none; /* Remove box shadow */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #001F3F; /* Dark blue text */
     margin-bottom: 20px;
 }
 
 #chatbox {
-    height: 400px;
+    flex-grow: 1; /* Fill remaining space */
     overflow-y: auto;
-    border: 1px solid #ccc;
+    border: 2px solid #003366; /* Dark blue border */
     margin-bottom: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #F9F9F9; /* Light gray background */
 }
 
 #messages {
@@ -38,23 +43,32 @@ h1 {
     flex-grow: 1;
 }
 
-.user-message, .ai-message {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+.message-container {
+    display: flex; /* Align items horizontally */
+    align-items: center; /* Center items vertically */
+    margin: 5px 0; /* Space between messages */
 }
 
 .user-message {
-    background-color: #e1ffc7;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    background-color: #3D9970; /* Dark green background */
+    color: white; /* White text */
     align-self: flex-end;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 70%; /* Limit the width of user messages */
 }
 
 .ai-message {
-    background-color: #d1e6ff;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    background-color: #0074D9; /* Dark blue background */
+    color: white; /* White text */
     align-self: flex-start;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 70%; /* Limit the width of AI messages */
 }
 
 .input-area {
@@ -66,19 +80,19 @@ h1 {
 #user-input {
     flex-grow: 1;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 2px solid #003366; /* Dark blue border */
     border-radius: 4px;
     transition: border-color 0.3s ease; /* Smooth transition for focus effect */
 }
 
 #user-input:focus {
-    border-color: #4CAF50; /* Change border color on focus */
+    border-color: #3D9970; /* Dark green border on focus */
     outline: none; /* Remove default outline */
 }
 
 #send-button {
     padding: 10px 15px;
-    background-color: #4CAF50;
+    background-color: #3D9970; /* Dark green button */
     color: white;
     border: none;
     border-radius: 4px;
@@ -87,20 +101,24 @@ h1 {
 }
 
 #send-button:hover {
-    background-color: #45a049;
+    background-color: #2C7A4B; /* Darker green on hover */
 }
 
+/* Helpline Styling */
 #helpline {
-    margin-top: 10px;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
+    color: white; /* White text for helpline */
     text-align: center; /* Center align helpline text */
+    background-color: red; /* Full red background */
+    padding: 10px; /* Add padding for better appearance */
+    position: relative; /* Changed to relative for proper stacking */
+    margin-top: 10px; /* Space above the helpline */
 }
 
 .scrolling-helpline {
-    animation: scroll 10s linear infinite;
+    white-space: nowrap; /* Prevent line breaks */
+    display: inline-block; /* Allow inline block for scrolling */
+    animation: scroll 10s linear infinite; /* Continuous scrolling */
 }
 
 @keyframes scroll {
@@ -108,22 +126,26 @@ h1 {
     100% { transform: translateX(-100%); }
 }
 
-.helpline-number {
-    color: red;
-}
-
 footer {
     text-align: center;
     margin-top: 20px;
     font-size: 0.9em;
-    color: #777;
+    color: black; /* Black text */
 }
 
 footer a {
-    color: #4CAF50; /* Link color */
+    color: #3D9970; /* Dark green link color */
     text-decoration: none;
 }
 
 footer a:hover {
     text-decoration: underline; /* Underline links on hover */
+}
+
+/* Avatar styles */
+.avatar {
+    width: 40px; /* Set avatar width */
+    height: 40px; /* Set avatar height */
+    border-radius: 50%; /* Make it circular */
+    margin-right: 10px; /* Space between avatar and message text */
 }
