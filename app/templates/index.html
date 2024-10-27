@@ -5,32 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/styles.css">
     <title>Mental Health Chatbot</title>
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="./favicon_io/apple-touch-icon.png"> -->
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io/favicon-32x32.png"> -->
+    <link rel="icon" type="image/x-icon"  href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <div class="container">
-        <h1>Mental Health Chatbot</h1>
-        <div id="chatbox">
-            <div id="messages">
-                <!-- User message without avatar -->
-                <div class="message-container">
-                    <div class="user-message">Hello, I need some help.</div>
-                </div>
-                <!-- Chatbot message with avatar -->
-                <div class="message-container">
-                    <img src="/static/character.jpg" alt="Chatbot Avatar" class="avatar">
-                    <div class="ai-message">I'm here to help! What’s on your mind?</div>
+    <div class="wrapper"> <!-- Centering wrapper -->
+        <div class="container">
+            <h1>Mental Health Chatbot</h1>
+            <div id="chatbox">
+                <div id="messages">
+                    <!-- User message without avatar -->
+                    <div class="message-container">
+                        <div class="user-message">Hello, I need some help.</div>
+                    </div>
+                    <!-- Chatbot message with avatar -->
+                    <div class="message-container">
+                        <img src="/character.png" alt="AI Avatar" class="avatar"> <!-- Adjust path as needed -->
+                        <div class="ai-message">I'm here to help! What’s on your mind?</div>
+                    </div>
                 </div>
             </div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Type your message here...">
+                <button id="send-button">Send</button>
+            </div>
+            <div id="helpline" class="scrolling-helpline">
+                If you are in crisis, please call the national helpline at 1-800-273-TALK (1-800-273-8255).
+            </div>
         </div>
-        <div class="input-area">
-            <input type="text" id="user-input" placeholder="Type your message here...">
-            <button id="send-button">Send</button>
-        </div>
-        <div id="helpline" class="scrolling-helpline">If you are in crisis, please call the national helpline at 1-800-273-TALK (1-800-273-8255).</div>
+        <footer>
+            <p>&copy; Cracker-Jack. All rights reserved.</p>
+            <p class="mental-health">@ Mental Health Awareness</p> <!-- Added mental health reminder -->
+        </footer>
     </div>
-    <footer>
-        <p>&copy; 2024 Mental Health Chatbot. All rights reserved.</p>
-    </footer>
     <script src="/static/script.js"></script>
 </body>
 </html>
