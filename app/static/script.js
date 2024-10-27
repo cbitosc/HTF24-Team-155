@@ -1,3 +1,5 @@
+// script.js
+
 // Get references to the send button and chat input field
 document.getElementById('send-button').onclick = function() {
     const userInput = document.getElementById('user-input').value.trim();
@@ -61,14 +63,3 @@ function displayMessage(message, sender) {
     // Auto-scroll to latest message
     document.getElementById('chatbox').scrollTop = document.getElementById('chatbox').scrollHeight; 
 }
-let timerElement = document.getElementById('timer');
-let time = 0; // Time in seconds
-
-function updateTimer() {
-    time++;
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-    timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-}
-
-setInterval(updateTimer, 1000); // Update the timer every second
