@@ -143,9 +143,32 @@ footer a:hover {
 }
 
 /* Avatar styles */
+/* Avatar Styles for Chatbot */
 .avatar {
-    width: 40px; /* Set avatar width */
-    height: 40px; /* Set avatar height */
-    border-radius: 50%; /* Make it circular */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     margin-right: 10px; /* Space between avatar and message text */
+}
+
+/* User message styling */
+.user-message {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #3D9970; /* Dark green background */
+    color: white;
+    align-self: flex-end;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 70%; /* Limit width of user messages */
+}
+
+/* Chatbot message styling */
+.ai-message {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #0074D9; /* Dark blue background */
+    color: white;
+    align-self: flex-start;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 70%; /* Limit width of AI messages */
 }
