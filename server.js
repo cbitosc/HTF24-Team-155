@@ -303,6 +303,7 @@ function getAIResponse(userInput) {
         ]
     };
 
+
     // Check for keywords in user input
     for (let keyword in responses) {
         if (userInput.includes(keyword)) {

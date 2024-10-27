@@ -11,6 +11,12 @@ body {
     height: 100vh; /* Full viewport height */
 }
 
+#timer-display {
+    font-size: 2em;
+    text-align: center;
+    margin: 20px 0;
+}
+
 .container {
     max-width: 700px; /* Keep the chatbot compact */
     width: 90%; /* Responsive width */

@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/styles.css">
     <title>Mental Health Chatbot</title>
-    <!-- <link rel="apple-touch-icon" sizes="180x180" href="./favicon_io/apple-touch-icon.png"> -->
-    <!-- <link rel="icon" type="image/png" sizes="32x32" href="./favicon_io/favicon-32x32.png"> -->
-    <link rel="icon" type="image/x-icon"  href="/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
     <div class="wrapper"> <!-- Centering wrapper -->
         <div class="container">
             <h1>Mental Health Chatbot</h1>
+            
+            <!-- Timer Display -->
+            <div id="timer-display">
+                <h2>Timer: <span id="timer">00:00</span></h2>
+            </div>
+
             <div id="chatbox">
                 <div id="messages">
                     <!-- User message without avatar -->
@@ -41,5 +45,19 @@
         </footer>
     </div>
     <script src="/static/script.js"></script>
+    <script>
+        // Timer script
+        let timerElement = document.getElementById('timer');
+        let time = 0; // Time in seconds
+
+        function updateTimer() {
+            time++;
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        setInterval(updateTimer, 1000); // Update the timer every second
+    </script>
 </body>
 </html>
