@@ -1,0 +1,21 @@
+{
+  "name": "htf24-team-155-1",
+  "version": "1.0.0",
+  "description": "In this Readme, you will find a guide on how to fork this Repository, add files to it, and make a pull request to contribute your changes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huggingface/inference": "^2.8.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "natural": "^8.0.1",
+    "openai": "^4.68.4"
+  }
+}
