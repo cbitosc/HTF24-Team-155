@@ -1,0 +1,170 @@
+/* General Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fc; /* Light pastel blue */
+    color: #4a4a4a; /* Soft dark gray for readability */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+}
+
+#timer-display {
+    font-size: 2em;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.container {
+    max-width: 700px; /* Keep the chatbot compact */
+    width: 90%; /* Responsive width */
+    min-height: 70vh; /* Minimum height of 70% of the viewport */
+    background: #ffffff; /* White background */
+    border-radius: 15px; /* Soft rounded corners */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styling */
+h1 {
+    text-align: center;
+    color: #88a3b3; /* Soft pastel blue */
+    margin: 0;
+    padding: 20px 0;
+    font-weight: 600;
+    background-color: #edf2f7; /* Very light pastel blue */
+    border-bottom: 1px solid #dfe5eb; /* Subtle border below header */
+}
+
+/* Chatbox Styling */
+#chatbox {
+    flex-grow: 1;
+    height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f9fafb; /* Very light gray */
+    border-top: 1px solid #dfe5eb;
+}
+
+#messages {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Chat Messages */
+.message-container {
+    display: flex;
+    align-items: flex-start;
+    margin: 12px 0;
+}
+
+.user-message {
+    padding: 12px;
+    border-radius: 12px;
+    background-color: #a4d4b4; /* Soft pastel green */
+    color: #ffffff;
+    align-self: flex-end;
+    max-width: 70%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ai-message {
+    padding: 12px;
+    border-radius: 12px;
+    background-color: #a3c9e2; /* Soft pastel blue */
+    color: #ffffff;
+    align-self: flex-start;
+    max-width: 70%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Avatar Styling */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+}
+
+/* Input Area */
+.input-area {
+    display: flex;
+    border-top: 1px solid #dfe5eb; /* Match header border color */
+    padding: 12px;
+    background-color: #ffffff;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #d3dae0;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+    background-color: #f0f3f7; /* Soft light gray */
+}
+
+#user-input:focus {
+    border-color: #a3c9e2; /* Blue on focus */
+    outline: none;
+}
+
+#send-button {
+    padding: 10px 15px;
+    margin-left: 8px;
+    background-color: #88a3b3; /* Soft blue-gray button */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#send-button:hover {
+    background-color: #6b8f9e; /* Darker pastel blue-gray on hover */
+}
+
+/* Helpline Banner */
+#helpline {
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    background-color: #ea9a8d; /* Soft pastel red */
+    padding: 12px;
+    font-size: 0.9em;
+    position: sticky;
+    bottom: 0;
+}
+
+.scrolling-helpline {
+    white-space: nowrap;
+    display: inline-block;
+    animation: scroll 12s linear infinite;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    font-size: 0.8em;
+    padding: 10px;
+    color: #8c96a3; /* Light gray-blue */
+    background-color: #edf2f7;
+}
+
+footer a {
+    color: #88a3b3;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

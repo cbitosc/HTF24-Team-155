@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Mental Health Chatbot</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+    <div class="wrapper"> <!-- Centering wrapper -->
+        <div class="container">
+            <h1>Mental Health Chatbot</h1>
+            
+            <!-- Timer Display -->
+            <div id="timer-display">
+                <h2>Timer: <span id="timer">00:00</span></h2>
+            </div>
+
+            <div id="chatbox">
+                <div id="messages">
+                    <!-- User message without avatar -->
+                    <div class="message-container">
+                        <div class="user-message">Hello, I need some help.</div>
+                    </div>
+                    <!-- Chatbot message with avatar -->
+                    <div class="message-container">
+                        <img src="app/static/favicon.ico" alt="AI Avatar" class="avatar"> <!-- Adjust path as needed -->
+                        <div class="ai-message">I'm here to help! What’s on your mind?</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Type your message here...">
+                <button id="send-button">Send</button>
+            </div>
+            <div id="helpline" class="scrolling-helpline">
+                If you are in crisis, please call the national helpline at 1-800-273-TALK (1-800-273-8255).
+            </div>
+        </div>
+        <footer>
+            <p>&copy; Cracker-Jack. All rights reserved.</p>
+            <p class="mental-health">@ Mental Health Awareness</p> <!-- Added mental health reminder -->
+        </footer>
+    </div>
+    <script src="/static/script.js"></script>
+    <script>
+        // Timer script
+        let timerElement = document.getElementById('timer');
+        let time = 0; // Time in seconds
+
+        function updateTimer() {
+            time++;
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+            timerElement.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        setInterval(updateTimer, 1000); // Update the timer every second
+    </script>
+</body>
+</html>
